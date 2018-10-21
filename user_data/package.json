@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/crisjimenez120/Linkr-server#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
     "nodemon": "^1.18.4",
     "pg": "^7.5.0",
     "sequelize": "^4.41.0"

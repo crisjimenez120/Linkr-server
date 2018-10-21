@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+
+
+    <form action="/posts" method="post" >
+      <textarea name="first" class="form-control" placeholder="Enter your first name: " rows="1"></textarea>
+      <textarea name="last" class="form-control" placeholder="Enter your last name: " rows="1"></textarea>
+      <button type="submit" class="btn btn-primary pull-right">Post</button>
+    </form>
+
+    <!--
+    <form action="/posts" method="post" >
+      <textarea name="post" class="form-control" placeholder="Blog text" rows="4"></textarea>
+      <textarea name="first" class="form-control" placeholder="Enter your first name: " rows="1"></textarea>
+      <textarea name="last" class="form-control" placeholder="Enter your last name: " rows="1"></textarea>
+      <textarea name="Monday" class="form-control" placeholder="Enter time for Monday (e.g. HH:MM = 03:30)" rows="1"></textarea>
+      <button type="submit" class="btn btn-primary pull-right">Post</button>
+    </form>
+     #######################################  -->
+
+  </div>
+</div>
+{{#each posts}}
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {{first}}
+          {{last}}
+          <!-- <p> {{createdAt}}</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+{{/each}}
+
