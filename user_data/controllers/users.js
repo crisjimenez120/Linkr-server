@@ -11,34 +11,26 @@ const PostsController = {
     return router;
   },
   index(req, res) {
-    models.Posts.findAll({
+    models.users.findAll({
       order: [
         ['createdAt', 'DESC']
       ]
     })
-      .then((posts) => {
-        res.render('posts', { posts });
+      .then((users) => {
+        res.render('users', { users });
       });
   },
   create(req, res) {
-    //the issue is here, how do we split two forms
 
-
-    /*
-        We take each form. Put it in an array
-        array[0];
-        array[1];
-    */
-
-
-
-
-    models.Posts.create({
+    models.users.create({
       first: req.body.first,
-      last: req.body.last
+      last: req.body.last,
+      day: req.body.day,
+      event_start: req.body.event_start,
+      event_end: req.body.event_end
     })
     .then((post) => {
-      res.redirect('/posts');
+      res.redirect('/users');
     })
     .catch((err) => {
       console.log('ERROR while creating a new post');
