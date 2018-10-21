@@ -1,0 +1,22 @@
+{
+  "name": "linkr-server",
+  "version": "1.0.0",
+  "description": "Backend server for Linkr schedule matcher",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crisjimenez120/Linkr-server.git"
+  },
+  "author": "Linkr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crisjimenez120/Linkr-server/issues"
+  },
+  "homepage": "https://github.com/crisjimenez120/Linkr-server#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
