@@ -2,8 +2,9 @@
   "name": "linkr-server",
   "version": "1.0.0",
   "description": "Backend server for Linkr schedule matcher",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,9 @@
   },
   "homepage": "https://github.com/crisjimenez120/Linkr-server#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "nodemon": "^1.18.4",
+    "pg": "^7.5.0",
+    "sequelize": "^4.41.0"
   }
 }
