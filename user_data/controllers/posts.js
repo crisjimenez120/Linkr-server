@@ -22,6 +22,17 @@ const PostsController = {
   },
   create(req, res) {
     //the issue is here, how do we split two forms
+
+
+    /*
+        We take each form. Put it in an array
+        array[0];
+        array[1];
+    */
+
+
+
+
     models.Posts.create({
       first: req.body.first,
       last: req.body.last
