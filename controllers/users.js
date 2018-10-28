@@ -16,9 +16,9 @@ const PostsController = {
         ['createdAt', 'DESC']
       ]
     })
-      .then((users) => {
-        res.render('users', { users });
-      });
+    .then((users) => {
+      res.render('users', { users });
+    });
   },
   create(req, res) {
 
@@ -36,8 +36,6 @@ const PostsController = {
       console.log('ERROR while creating a new post');
       res.redirect('/error');
     })
-
-    console.log(req);
   }
 };
 
