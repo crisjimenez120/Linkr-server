@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
+  
     <!-- Posting form -->
     <form action="/users" method="post">
       <textarea name="user_name" class="form-control" placeholder="Enter your user_name: " rows="1"></textarea>
@@ -11,7 +12,7 @@
     </form>
 
     <!-- Delete Form -->
-    <h1> BELOW IS DELETE </h1>
+    <h1> BELOW IS DELETE (only username required to delete) </h1>
     <form action="/users/delete" method="post">
       <textarea name="user_name" class="form-control" placeholder="Enter your user_name: " rows="1"></textarea>
       <textarea name="event_name" class="form-control" placeholder="Enter the event_name: " rows="1"></textarea>
@@ -20,6 +21,18 @@
       <textarea name="time_end" class="form-control" placeholder="End time (e.g. HH:MM = 03:30): " rows="1"></textarea>
       <button type="submit" class="btn btn-primary pull-right">Delete</button>
     </form>
+
+    <!-- Update form -->
+    <h1> BELOW IS UPDATE (must list all info) </h1>
+    <form action="/users/update" method="post">
+      <textarea name="user_name" class="form-control" placeholder="Enter your user_name: " rows="1"></textarea>
+      <textarea name="event_name" class="form-control" placeholder="Enter the event_name: " rows="1"></textarea>
+      <textarea name="date" class="form-control" placeholder="Enter the date of the event: " rows="1"></textarea>
+      <textarea name="time_start" class="form-control" placeholder="Start time (e.g. HH:MM = 03:30): " rows="1"></textarea>
+      <textarea name="time_end" class="form-control" placeholder="End time (e.g. HH:MM = 03:30): " rows="1"></textarea>
+      <button type="submit" class="btn btn-primary pull-right">Update</button>
+    </form>
+
   </div>
 </div>
 {{#each users}}
