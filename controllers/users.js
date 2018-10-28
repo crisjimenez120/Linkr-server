@@ -5,18 +5,33 @@ const PostsController = {
   registerRouter() {
     const router = express.Router();
 
-    router.get('/', this.index);
-    router.get('/data', this.users);
-    router.post('/', this.create);
+    router.get('/', this.index);              //display the user data from database
+    router.get('/data', this.users);          //json of user data
+    router.post('/', this.create);            //create
+    router.post('/delete', this.delete_user); //delete
 
     return router;
+  },
+  delete_user(request, response){
+
+    console.log("WE CALLED DELETE");
+    let temp = request.body.user_name;
+
+    models.users.destroy({
+      where: {
+        user_name: temp
+      }
+    })
+    .then((post) => {
+      response.redirect('/users');
+    })
   },
   users(request, response){
     models.users.findAll({
       order: [
         ['createdAt', 'DESC']
       ]
-    }).then((users) => { response.json(users); } )
+    }).then((users) => { response.json(users); } ) //can do response.send
   },
   index(req, res) {
     models.users.findAll({
