@@ -10,7 +10,7 @@ const HomeController = {
     return router;
   },
   index(req, res) {
-    res.redirect('/posts')
+    res.redirect('/users')
   }
 };
 

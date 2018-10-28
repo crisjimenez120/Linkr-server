@@ -1,14 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-  var Posts = sequelize.define('Posts', {
+  var users = sequelize.define('users', {
     first: DataTypes.STRING,
     last: DataTypes.STRING,
+    day: DataTypes.STRING,
+    event_start: DataTypes.TIME,
+    event_end: DataTypes.TIME
   });
 
-  Posts.associate = (models) => {
+  users.associate = (models) => {
     // associations can be defined here
   }
 
-  return Posts;
+  return users;
 };
 
 
