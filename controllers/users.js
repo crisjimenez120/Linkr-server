@@ -6,9 +6,17 @@ const PostsController = {
     const router = express.Router();
 
     router.get('/', this.index);
+    router.get('/data', this.users);
     router.post('/', this.create);
 
     return router;
+  },
+  users(request, response){
+    models.users.findAll({
+      order: [
+        ['createdAt', 'DESC']
+      ]
+    }).then((users) => { response.json(users); } )
   },
   index(req, res) {
     models.users.findAll({
@@ -23,11 +31,11 @@ const PostsController = {
   create(req, res) {
 
     models.users.create({
-      first: req.body.first,
-      last: req.body.last,
-      day: req.body.day,
-      event_start: req.body.event_start,
-      event_end: req.body.event_end
+      user_name: req.body.user_name,
+      event_name: req.body.event_name,
+      date: req.body.date,
+      time_start: req.body.time_start,
+      time_end: req.body.time_end
     })
     .then((post) => {
       res.redirect('/users');

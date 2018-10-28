@@ -2,12 +2,12 @@
   <div class="col-xs-6 col-xs-offset-3">
 
 
-    <form action="/users" method="post" >
-      <textarea name="first" class="form-control" placeholder="Enter your first name: " rows="1"></textarea>
-      <textarea name="last" class="form-control" placeholder="Enter your last name: " rows="1"></textarea>
-      <textarea name="day" class="form-control" placeholder="Enter your first name: " rows="1"></textarea>
-      <textarea name="event_start" class="form-control" placeholder="Enter your last name: " rows="1"></textarea>
-      <textarea name="event_end" class="form-control" placeholder="Enter your first name: " rows="1"></textarea>
+    <form action="/users" method="post">
+      <textarea name="user_name" class="form-control" placeholder="Enter your user_name: " rows="1"></textarea>
+      <textarea name="event_name" class="form-control" placeholder="Enter the event_name: " rows="1"></textarea>
+      <textarea name="date" class="form-control" placeholder="Enter the date of the event: " rows="1"></textarea>
+      <textarea name="time_start" class="form-control" placeholder="Start time (e.g. HH:MM = 03:30): " rows="1"></textarea>
+      <textarea name="time_end" class="form-control" placeholder="End time (e.g. HH:MM = 03:30): " rows="1"></textarea>
       <button type="submit" class="btn btn-primary pull-right">Confirm</button>
       <button type="submit" class="btn btn-primary pull-right">Update</button>
     </form>
@@ -18,11 +18,11 @@
     <div class="col-xs-6 col-xs-offset-3">
       <div class="panel panel-default">
         <div class="panel-body">
-          First name: {{first}} <br>
-          Last Name:  {{last}} <br>
-          Day:  {{day}} <br>
-          Time Start: {{event_start}} <br>
-          Time End: {{event_end}}
+          User: {{user_name}} <br>
+          Event:  {{event_name}} <br>
+          Date:  {{date}} <br>
+          Time Start: {{time_start}} <br>
+          Time End: {{time_end}}
           <!-- <p> {{createdAt}}</p> -->
         </div>
       </div>
