@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
   return users;
 };
 
+//test
+
 
 // module.exports = (sequelize, DataTypes) => {
 //   var Posts = sequelize.define('Posts', {
