@@ -1,41 +1,138 @@
-//Saif Shakur 10/21/2018
-//Going to comment as I go about understanding the code
-const bodyParser = require('body-parser');
-const exphbs = require('express-handlebars');
-const express = require('express');
-const models = require('./models');
+var Express = require("express");		//Using express
+var Sequelize = require("sequelize");	//Using sequelize
+// var models = require('../models');
 
-const PORT = process.env.PORT || 8000;
+//Assuming we're connected to "linkr_development" database
+var sequelize = new Sequelize('postgres://linkr:password@localhost:5432/linkr_development');
+var app = Express();	// the express "object" we're using to call routes
 
-
-const app = express();
+var PORT = process.env.PORT || 3001;	//port we usin
 
 
-// Setup the body-parser and handlebars middleware packages
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('./public'));
-app.engine('handlebars', exphbs({
-  layoutsDir: './views/layouts',
-  defaultLayout: 'main',
-}));
-app.set('view engine', 'handlebars');
-app.set('views', `${__dirname}/views/`);
+//a simple authentication check, to make sure we in dat ass
+sequelize.authenticate() .then(() => {
+    console.log('Connection has been established successfully.');
+  }).catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 
-// The controllers contain all routing
-app.use(require('./controllers'));
+// sequelize.sync({ force: false })
+//   .then(() => {
+//     app.listen(PORT, () => {
+//       console.log(`Server is up and running on port: ${PORT}`)
+//     });
+//   });
 
-models.sequelize.sync({ force: false })
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is up and running on port: ${PORT}`)
+//-------------------------[Models]----------------------------
+
+
+var users = sequelize.define ('users', {
+		user_id: {type: Sequelize.INTEGER, primaryKey: true},
+		user_name: Sequelize.STRING,
+	    password: Sequelize.STRING
+});
+
+var events = sequelize.define ('events', {
+		title: Sequelize.STRING,
+		start_date: Sequelize.DATE,
+		end_date: Sequelize.DATE
+});
+
+var groups = sequelize.define ('groups', {
+		group_id: Sequelize.INTEGER,
+		user_id: Sequelize.INTEGER,
+		group_name: Sequelize.STRING,
+		admin: Sequelize.BOOLEAN
+});
+
+//NEED TO SYNC TO UPDATE TABLE
+// events.sync();
+
+//----------------------[Controllers]---------------------------
+//----------------------[CRUD]---------------------------
+app.get("/", (request, response) => {
+	response.send("IT WORKS");
+})
+
+//basic route to make sure that shit not hit
+app.get("/api_events", (request, response) => { 
+
+	events.findAll()
+	.then(events => {
+	  response.send(events);
+	});
+});
+
+//basic route to ADD a mock entry
+app.get("/api_create", (request, response) =>{
+/*
+		{id: 3, title: "Beat All The Gyms", start: "2018-11-15T08:00:00.000Z", end: "2018-11-15T11:00:00.000Z"}
+		{id: 3, title: "Beat All The Gyms", start: "2018-11-15T08:00:00.000Z", end: "2018-11-15T11:00:00.000Z"}
+*/
+	events.create({
+		title: "BEATING CRIS IN POKEMON",
+		start_date: "2018-11-15T08:00:00.000Z",
+		end_date: "2018-11-15T11:00:00.000Z",
+	}).then((get) => {
+	  response.redirect('/');
+	}).catch((err) => {
+      console.log(err);
     });
-  })
 
-  /*
-  CREATE TABLE (first VARCHAR(20), last VARCHAR(20), Sunday TIME, Monday TIME, 
-  Tuesday TIME, Wednesday TIME, Thursday TIME, Friday TIME, Saturday TIME);
-  */
+	// response.json({
+	// 	example: "this is the example"
+	// });
+});
+
+
+//-------------------------need to update it------------
+//basic route to REMOVE the mock entry
+app.get("/api_delete", (request, response) =>{
+
+	events.destroy({
+		where: {
+			title: "FUCKING ISH"
+		}
+	}).then((get) => {
+	  response.redirect('/');
+	}).catch((err) => {
+      console.log('ERROR while DELETEING a post for Nartuo');
+    });
+
+	// response.json({
+	// 	example: "this is the example"
+	// });
+});
+
+app.get("/api_update", (request, response) =>{
+
+	users.update(
+	{
+		event_name: "MY PARENTS ARE DEAD"
+	},
+	{
+		where:
+		{
+			user_name: "Naruto"
+		}
+	}).then((get) =>{
+		response.redirect("/");
+	}).catch((error) => {
+		console.log("ERROR while UPDATING Naruto's event");
+	})
+
+	// response.json({
+	// 	example: "this is the example"
+	// });
+});
+
+
+//the app is listening on port XXXX
+app.listen(PORT, () => {
+  console.log(`Issa running on port ${PORT}`);
+});
+//----------------------[Controllers]---------------------------
+
 
 
