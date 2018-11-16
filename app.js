@@ -1,5 +1,7 @@
 var Express = require("express");		//Using express
 var Sequelize = require("sequelize");	//Using sequelize
+var router = Express.Router();
+var bodyParser = require('body-parser');
 // var models = require('../models');
 
 //Assuming we're connected to "linkr_development" database
@@ -17,6 +19,8 @@ sequelize.authenticate() .then(() => {
     console.error('Unable to connect to the database:', err);
   });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // sequelize.sync({ force: false })
 //   .then(() => {
@@ -36,8 +40,8 @@ sequelize.authenticate() .then(() => {
 
 var events = sequelize.define ('events', {
 		title: Sequelize.STRING,
-		start_date: Sequelize.DATE,
-		end_date: Sequelize.DATE
+		start: Sequelize.DATE,
+		end: Sequelize.DATE
 });
 
 // var groups = sequelize.define ('groups', {
@@ -66,17 +70,30 @@ app.get("/api_events", (request, response) => {
 });
 
 //basic route to ADD a mock entry
-app.get("/api_create", (request, response) =>{
+app.post("/api_create", (request, response) =>{
 /*
 		{id: 3, title: "Beat All The Gyms", start: "2018-11-15T08:00:00.000Z", end: "2018-11-15T11:00:00.000Z"}
 		{id: 3, title: "Beat All The Gyms", start: "2018-11-15T08:00:00.000Z", end: "2018-11-15T11:00:00.000Z"}
 */
 	events.create({
-		title: "BEATING CRIS IN POKEMON",
-		start: "2018-11-15T08:00:00.000Z",
-		end: "2018-11-15T11:00:00.000Z",
+
+		// title: "BEATING CRIS IN POKEMON",
+		// start: "2018-11-15T08:00:00.000Z",
+		// end: "2018-11-15T11:00:00.000Z"
+
+		title: request.body.title,
+		start: request.body.start,
+		end: request.body.end
+
+		
+		// title: "BEATING CRIS IN POKEMON",
+		// start: "2018-11-15T08:00:00.000Z",
+		// end: "2018-11-15T11:00:00.000Z",
+		
 	}).then((get) => {
-	  response.redirect('/api_events');
+	  //response.redirect('/api_events');
+	  console.log("SUCCESS, WE ADDED A USER MADE THING");
+	  response.send(200);
 	}).catch((err) => {
       console.log(err);
     });
