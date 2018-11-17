@@ -21,12 +21,12 @@ router.post("/api_signin", (request, response) => {
       { 
         email: request.body.email 
       }
-  }).then((results) => {
+  }).then((theuser) => {
 
-    if(results != null)
+    if(theuser != null)
     {
-      console.log("Here is the user we found: " + results.email);
-      response.send(200);
+      console.log("Here is the user we found: " + theuser.email);
+      response.send(theuser);
     }
     else
     {

@@ -38,9 +38,10 @@ router.post("/api_registration", (request, response) => {
         email: request.body.email,
         password: request.body.password
 
-      }).then( (get) => {
-        console.log("WE MADE A NEW USER WITH EMAIL: " + request.body.email);
-        response.send(200);
+      }).then( (new_user) => {
+        console.log("WE MADE A NEW USER WITH EMAIL: " + new_user.email);
+
+        response.send(new_user);
       });
     }
     else
