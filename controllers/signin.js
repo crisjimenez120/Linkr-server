@@ -25,7 +25,8 @@ router.post("/api_signin", (request, response) => {
 
     if(theuser != null)
     {
-      console.log("Here is the user we found: " + theuser.email);
+      // console.log(theuser);
+      console.log("Here is the user we found: " + theuser);
       response.send(theuser);
     }
     else
