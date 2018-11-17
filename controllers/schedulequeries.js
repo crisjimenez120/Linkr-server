@@ -1,5 +1,10 @@
 
-router.get("/api_user_events", (req, res) => { 
+const express = require('express');
+const models = require('../models');
+
+const router = express.Router();
+
+router.get("/api_single_events", (req, res) => { 
   models.users.findOne({ // get the user
   	where: {email: req.body.email}
   }).then(res => { 
@@ -10,3 +15,6 @@ router.get("/api_user_events", (req, res) => {
   	res.json(events);// send their api_user_events
   })
 });
+
+
+module.exports = router;
