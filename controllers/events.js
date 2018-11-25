@@ -28,7 +28,8 @@ router.post("/api_create", (request, response) => {
 
     title: request.body.title,
     start: request.body.start,
-    end: request.body.end
+    end: request.body.end,
+    user_email: request.body.user_email
     
   }).then((get) => {
     //response.redirect('/api_events');
