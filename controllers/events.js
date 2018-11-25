@@ -9,9 +9,14 @@ router.get("/", (request, response) => {
 })
 
 // -------------[GET]---------------
-router.get("/api_events", (request, response) => { 
-  models.events.findAll()
-  .then(events => {
+router.post("/api_events", (request, response) => { 
+
+  models.events.findAll({
+    where:
+    {
+      user_email: request.body.user_email
+    }
+  }).then(events => {
     response.send(events);
   });
 });
