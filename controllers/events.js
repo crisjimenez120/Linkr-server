@@ -23,13 +23,8 @@ router.post("/api_events", (request, response) => {
 
 // -------------[POST]---------------
 //basic route to ADD a mock entry
-router.post("/api_create", (request, response) => {
-  console.log("WE IN IT");
+router.post("/api_create_event", (request, response) => {
   models.events.create({
-
-    // title: "BEATING CRIS IN POKEMON",
-    // start: "2018-11-15T08:00:00.000Z",
-    // end: "2018-11-15T11:00:00.000Z"
 
     title: request.body.title,
     start: request.body.start,
@@ -46,37 +41,39 @@ router.post("/api_create", (request, response) => {
 });
 
 // -------------[PUT]---------------
-router.put("/api_update", (request, response) =>{
+router.put("/api_update_event", (request, response) =>{
 
   events.update(
   {
-    start: "2999-12-21T08:00:00.000Z"
+    title: request.body.title,
+    start: request.body.start,
+    end: request.body.end
   },
   {
-    where:
+    where: // match based on the user's email and the title //
     {
-      title: "BEATING CRIS IN POKEMON"
+      id: request.body.id,
+      user_email: request.body.user_email
     }
   }).then((get) =>{
     response.redirect("/api_events");
   }).catch((error) => {
-    console.log("ERROR while UPDATING Naruto's event");
+    console.log("ERROR while updating the requested event");
   })
 });
 
 // -------------[DELETE]---------------
-//basic route to REMOVE the mock entry
-router.delete("/api_delete", (request, response) =>{
-
+router.delete("/api_delete_event", (request, response) => {
   models.events.destroy({
     where: {
-      title: "BEATING CRIS IN POKEMON"
+    	user_email: request.body.user_email,
+		id: request.body.id
     }
   }).then((get) => {
     response.redirect('/api_events');
   }).catch((err) => {
-      console.log('ERROR while DELETEING a post for Nartuo');
-    });
+      console.log('ERROR while deleting the requested event');
+  });
 });
 
 
