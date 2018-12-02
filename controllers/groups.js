@@ -22,32 +22,14 @@ router.post("/api_all_groups_single_user", (request, response) => {
 
   console.log("WE GETTING ALL GROUPS FOR ONE USER");
 
-  /*
-	1)	Get the unique groups in groups_to_users where the user_email == request.body.user_email (in a set)
-	2)	With that set, get the group_name and memeber count (seperate function/route) for each item in that set
-	3)  response.send(results_from_2);
-  */
-
-  // models.sequelize.query(
-  //   `SELECT * FROM groups, (SELECT * FROM groups_to_users WHERE user_email = 'email@email.com') A WHERE groups.id = A.group_id;`,
-  //   {model: models.groups}) 
-  //   .then((groups) => {
-    
-  //     console.log(groups);
-  //     response.json(groups);
-
-  // }).catch((err) =>{
-  //   console.log(err);
-  // });
-
   
-    models.sequelize.query(
-    `SELECT * FROM groups, (SELECT * FROM groups_to_users WHERE user_email = '${request.body.user_email}') A WHERE groups.id = A.group_id;`,
-    {model: models.groups}) 
-    .then((groups) => {
-    
-      console.log(groups);
-      response.send(groups);
+  models.sequelize.query(
+  `SELECT * FROM groups, (SELECT * FROM groups_to_users WHERE user_email = '${request.body.user_email}') A WHERE groups.id = A.group_id;`,
+  {model: models.groups}) 
+  .then((groups) => {
+  
+    console.log(groups);
+    response.send(groups);
 
   }).catch((err) =>{
     console.log(err);
@@ -57,8 +39,35 @@ router.post("/api_all_groups_single_user", (request, response) => {
 
 
 
+//3:00pm
+router.get("/api_get_all_events_for_group", (request, response) => {
+
+
+  console.log("WE GETTING ALL EVENTS FOR ONE GROUP");
+
+  models.sequelize.query(
+  `SELECT * FROM events, (SELECT * FROM groups_to_users WHERE group_id = '15') A WHERE events.user_email = A.user_email;`,
+  {model: models.events}) 
+  .then((events) => {
+  
+    console.log(events);
+    response.send(events);
+
+  }).catch((err) =>{
+    console.log(err);
+  });
+  /*
+
+    1) get all group_id from request
+    2) get all the user_emails from the group_to_users table where the row's group_id == id
+  */
+
+});
+
+
+
 //basic route to create a group
-router.get("/api_create_group", (request, response) => {
+router.post("/api_create_group", (request, response) => {
 
   console.log("WE CREATING A GROUP");
 
