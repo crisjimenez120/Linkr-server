@@ -18,7 +18,7 @@ router.get("/api_all_groups", (request, response) => {
 });
 
 //basic route to get a group for a single user
-router.get("/api_all_groups_single_user", (request, response) => {
+router.post("/api_all_groups_single_user", (request, response) => {
 
   console.log("WE GETTING ALL GROUPS FOR ONE USER");
 
@@ -28,8 +28,21 @@ router.get("/api_all_groups_single_user", (request, response) => {
 	3)  response.send(results_from_2);
   */
 
-  models.sequelize.query(
-    " SELECT * FROM groups, (SELECT * FROM groups_to_users WHERE user_email = 'email@email.com') A WHERE groups.id = A.group_id;",
+  // models.sequelize.query(
+  //   `SELECT * FROM groups, (SELECT * FROM groups_to_users WHERE user_email = 'email@email.com') A WHERE groups.id = A.group_id;`,
+  //   {model: models.groups}) 
+  //   .then((groups) => {
+    
+  //     console.log(groups);
+  //     response.json(groups);
+
+  // }).catch((err) =>{
+  //   console.log(err);
+  // });
+
+  
+    models.sequelize.query(
+    `SELECT * FROM groups, (SELECT * FROM groups_to_users WHERE user_email = '${request.body.user_email}') A WHERE groups.id = A.group_id;`,
     {model: models.groups}) 
     .then((groups) => {
     
@@ -39,6 +52,7 @@ router.get("/api_all_groups_single_user", (request, response) => {
   }).catch((err) =>{
     console.log(err);
   });
+  
 });
 
 
@@ -50,9 +64,13 @@ router.get("/api_create_group", (request, response) => {
 
   models.groups.create({
 
-    group_name: "CSCI Group",
-    group_desc: "Studying CSCI",
-    admin: "email@email.com"
+    group_name: request.body.groupName,
+    group_desc: request.body.groupDesc,
+    admin: request.body.email
+
+    // group_name: "Something Group",
+    // group_desc: "Studying CSCI",
+    // admin: "email@email.com"
     
   }).then((newgroup) => {
    
