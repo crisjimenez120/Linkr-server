@@ -11,9 +11,9 @@ function MergeIntervals (events) {
 }
 
 function BubbleSort(array) {  
-   for (let i = 0; i < n-1; i++)       
+   for (let i = 0; i < array.size()-1; i++)       
        // Last i elements are already in place    
-       for (let j = 0; j < n-i-1; j++)  
+       for (let j = 0; j < array.size()-i-1; j++)  
            if (array[j] > array[j+1]) 
               Swap(array[j], array[j+1]);
 	return array; 
