@@ -46,7 +46,7 @@ router.get("/api_get_all_events_for_group", (request, response) => {
   console.log("WE GETTING ALL EVENTS FOR ONE GROUP");
 
   models.sequelize.query(
-  `SELECT * FROM events, (SELECT * FROM groups_to_users WHERE group_id = '15') A WHERE events.user_email = A.user_email;`,
+  `SELECT * FROM events, (SELECT * FROM groups_to_users WHERE group_id = '${request.body.group_id}') A WHERE events.user_email = A.user_email;`,
   {model: models.events}) 
   .then((events) => {
   
@@ -64,6 +64,46 @@ router.get("/api_get_all_events_for_group", (request, response) => {
 
 });
 
+//5:38pm - done
+router.post("/api_get_all_users_for_group", (request, response) => {
+
+
+  console.log("WE GETTING ALL USERS FOR ONE GROUP");
+
+  models.sequelize.query(
+  `SELECT groups_to_users.user_email FROM groups_to_users WHERE groups_to_users.group_id = '${request.body.group_id}';`, 
+  {type: models.sequelize.QueryTypes.SELECT}) 
+  .then((results) => {
+  
+    console.log(results);
+    response.send(results);
+
+  }).catch((err) =>{
+    console.log(err);
+  });
+
+});
+
+/*
+//5:20pm
+router.get("/api_get_all_users_for_group", (request, response) => {
+  
+
+  console.log("WE GETTING ALL USERS FOR ONE GROUP");
+
+  models.sequelize.query(
+  `SELECT groups_to_users.email FROM groups_to_users WHERE groups_to_users.group_id = '${request.body.group_id}';`) 
+  .then((results) => {
+  
+    console.log(results);
+    response.send(results);
+
+  }).catch((err) =>{
+    console.log(err);
+  });
+
+});
+*/
 
 
 //basic route to create a group
