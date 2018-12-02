@@ -30,6 +30,31 @@ models.sequelize.sync({ force: false })
     });
   });
 
+PopulateMockData(); // populate mock data
+
+function PopulateMockData () {
+	console.log ("Called");
+	models.user_data.create({
+		user_name: "Saif Shakur",
+		email: "email@email.com",
+		password: "password"
+	});
+	models.user_data.create ({
+		user_name: "Ismail Kheir",
+		email: "ish@ish.com",
+		password: "password"
+	});
+
+	models.events.create ({
+		title: "Auto Generated 1",
+		user_email: "ish@ish.com"
+	});
+	models.events.create ({
+		title: "Auto Generated 2",
+		user_email: "email@email.com"
+	});
+}
+
 //----------------------[Controllers]---------------------------
 
 
