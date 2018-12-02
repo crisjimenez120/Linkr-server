@@ -24,6 +24,9 @@ router.post("/api_events", (request, response) => {
 // -------------[POST]---------------
 //basic route to ADD a mock entry
 router.post("/api_create_event", (request, response) => {
+
+  console.log("WE IN IT");
+
   models.events.create({
 
     title: request.body.title,
@@ -64,6 +67,9 @@ router.put("/api_update_event", (request, response) =>{
 });
 
 // -------------[DELETE]---------------
+
+//basic route to REMOVE the mock entry
+
 router.delete("/api_delete_event", (request, response) => {
   models.events.destroy({
     where: {

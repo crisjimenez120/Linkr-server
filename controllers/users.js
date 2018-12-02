@@ -5,6 +5,7 @@ const router = express.Router();
 
 // -------------[Hard display of the users that are registered]---------------
 router.get("/api_all_users", (request, response) => {
+  
   console.log("WE'RE GETTING ALL USERS");
 
   models.user_data.findAll()

@@ -6,6 +6,7 @@ router.use ('/events', require('./events'));
 router.use ('/registration', require('./registration'));
 router.use ('/signin', require('./signin'));
 router.use ('/schedulequeries', require('./schedulequeries'));
+router.use ('/groups', require('./groups'));
 //router.use ('/mockdata', require('./mockdata'));
 
 module.exports = router;
