@@ -55,11 +55,12 @@ router.put("/api_update_event", (request, response) =>{
   {
     where: // match based on the user's email and the title //
     {
-      id: request.body.id,
-      user_email: request.body.user_email
+      id: request.body.id
     }
   }).then((get) =>{
-    response.redirect("/api_events");
+    //response.redirect("/api_events");
+    console.log ("UPdate done?")
+    response.send(200);
   }).catch((error) => {
     console.log("ERROR while updating the requested event");
   })
@@ -72,12 +73,11 @@ router.put("/api_update_event", (request, response) =>{
 router.delete("/api_delete_event", (request, response) => {
   models.events.destroy({
     where: {
-    	user_email: request.body.user_email,
-		  id: request.body.id
+		id: request.body.id
     }
-  })
-  .then((get) => {
-    response.redirect('/api_events');
+  }).then((get) => {
+    console.log ("Delete done?")
+    response.send(200);
   }).catch((err) => {
       console.log('ERROR while deleting the requested event');
   });
