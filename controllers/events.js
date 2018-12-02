@@ -53,7 +53,7 @@ router.put("/api_update_event", (request, response) =>{
     end: request.body.end
   },
   {
-    where: // match based on the user's email and the title //
+    where: // match based on the user's id //
     {
       id: request.body.id
     }
