@@ -23,7 +23,7 @@ router.post("/api_events", (request, response) => {
 
 // -------------[POST]---------------
 //basic route to ADD a mock entry
-router.post("/api_create", (request, response) => {
+router.post("/api_create_event", (request, response) => {
   console.log("WE IN IT");
   models.events.create({
 
@@ -46,7 +46,7 @@ router.post("/api_create", (request, response) => {
 });
 
 // -------------[PUT]---------------
-router.put("/api_update", (request, response) =>{
+router.put("/api_update_event", (request, response) =>{
 
   events.update(
   {
@@ -66,13 +66,13 @@ router.put("/api_update", (request, response) =>{
 
 // -------------[DELETE]---------------
 //basic route to REMOVE the mock entry
-router.delete("/api_delete", (request, response) =>{
-
-  models.events.destroy({
+router.delete("/api_delete_event", (request, response) =>{
+models.events.destroy({
     where: {
       title: "BEATING CRIS IN POKEMON"
     }
-  }).then((get) => {
+  })
+  .then((get) => {
     response.redirect('/api_events');
   }).catch((err) => {
       console.log('ERROR while DELETEING a post for Nartuo');
