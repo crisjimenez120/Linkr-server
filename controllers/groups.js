@@ -77,9 +77,9 @@ router.post("/api_create_group", (request, response) => {
     group_desc: request.body.groupDesc,
     admin: request.body.email
 
-    // group_name: "Something Group",
-    // group_desc: "Studying CSCI",
-    // admin: "email@email.com"
+    /*group_name: "Something Group",
+    group_desc: "Studying CSCI",
+    admin: "email@email.com"*/
     
   }).then((newgroup) => {
    
@@ -98,26 +98,46 @@ router.post("/api_create_group", (request, response) => {
 
   }).catch((err) => {
       console.log(err);
-    });
+  });
 
 });
 
+// Update a group //
+router.put("/api_update_group", (request, response) => {
+  models.groups.update({
+    group_name: request.body.group_name,
+    group_desc: request.body.group_desc,
+    admin: request.body.admin
+  },
+  {
+  where: {
+      id: request.body.id
+  }
+  }).then((updated) => {
+    console.log("updated CSCI GROUP");
+    response.send(200);
+  }).catch((err) => {
+    console.log(err);
+  });
+});
 
-
-router.get("/api_delete_group", (request, response) => {
-
-  console.log("WE CREATING A GROUP");
-
+// Delete a group //
+router.delete("/api_delete_group", (request, response) => {
+  models.groups_to_user.destroy({
+    where : {
+      group_id: request.body.id
+    }
+  });
   models.groups.destroy({
     where: {
-      group_name: "Math Group"
+      id: request.body.id
     }
-  }).then((get) => {
-
+  }).then((deleted) => {
     console.log("DELETE CSCI GROUP");
-    response.send(get);
+    response.send(200);
+  }).catch((err) => {
+    console.log(err);
   });
-
 });
 
 
