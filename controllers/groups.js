@@ -17,72 +17,6 @@ router.get("/api_all_groups", (request, response) => {
     });
 });
 
-//basic route to get a group for a single user
-router.post("/api_all_groups_single_user", (request, response) => {
-
-  console.log("WE GETTING ALL GROUPS FOR ONE USER");
-
-  
-  models.sequelize.query(
-  `SELECT * FROM groups, (SELECT * FROM groups_to_users WHERE user_email = '${request.body.user_email}') A WHERE groups.id = A.group_id;`,
-  {model: models.groups}) 
-  .then((groups) => {
-  
-    console.log(groups);
-    response.send(groups);
-
-  }).catch((err) =>{
-    console.log(err);
-  });
-  
-});
-
-
-
-//3:00pm
-router.get("/api_get_all_events_for_group", (request, response) => {
-
-
-  console.log("WE GETTING ALL EVENTS FOR ONE GROUP");
-
-  models.sequelize.query(
-  `SELECT * FROM events, (SELECT * FROM groups_to_users WHERE group_id = '${request.body.group_id}') A WHERE events.user_email = A.user_email;`,
-  {model: models.events}) 
-  .then((events) => {
-  
-    console.log(events);
-    response.send(events);
-
-  }).catch((err) =>{
-    console.log(err);
-  });
-  /*
-
-    1) get all group_id from request
-    2) get all the user_emails from the group_to_users table where the row's group_id == id
-  */
-
-});
-
-//5:38pm - done
-router.post("/api_get_all_users_for_group", (request, response) => {
-
-
-  console.log("WE GETTING ALL USERS FOR ONE GROUP");
-
-  models.sequelize.query(
-  `SELECT groups_to_users.user_email FROM groups_to_users WHERE groups_to_users.group_id = '${request.body.group_id}';`, 
-  {type: models.sequelize.QueryTypes.SELECT}) 
-  .then((results) => {
-  
-    console.log(results);
-    response.send(results);
-
-  }).catch((err) =>{
-    console.log(err);
-  });
-
-});
 
 /*
 //5:20pm
@@ -182,34 +116,103 @@ router.delete("/api_delete_group", (request, response) => {
 
 
 
-router.get("/api_delete_groups_to_users", (request, response) => {
+router.delete("/api_delete_groups_to_users", (request, response) => {
 
-  console.log("WE CREATING A GROUP");
+  console.log("WE DELETE A HOMIE");
 
   models.groups_to_user.destroy({
     where: {
-      id: "11"
+      group_id: request.body.group_id,
+      user_email: request.body.email
     }
   }).then((get) => {
 
-    console.log("DELETE CSCI GROUP");
-    response.send(get);
+    console.log("DELETED A USER GROUP W.E.");
+    response.send(200);
   });
 
 });
 
 
-router.get("/api_add_groups_to_user", (request, response) => {
+router.post("/api_add_groups_to_user", (request, response) => {
 
   models.groups_to_user.create({
 
-    group_id: "16",
-    user_email: "cris@cris3.com"
-
+    group_id: request.body.group_id,
+    user_email: request.body.email
 
   }).then( (results) => {
-  console.log("We're adding a user to the groups_to_user");
+    console.log("We're adding a user to the groups_to_user");
+    response.send(200);
   }); 
+});
+
+
+//basic route to get a group for a single user
+router.post("/api_all_groups_single_user", (request, response) => {
+
+  console.log("WE GETTING ALL GROUPS FOR ONE USER");
+
+  
+  models.sequelize.query(
+  `SELECT * FROM groups, (SELECT * FROM groups_to_users WHERE user_email = '${request.body.user_email}') A WHERE groups.id = A.group_id;`,
+  {model: models.groups}) 
+  .then((groups) => {
+  
+    console.log(groups);
+    response.send(groups);
+
+  }).catch((err) =>{
+    console.log(err);
+  });
+  
+});
+
+
+
+//3:00pm
+router.get("/api_get_all_events_for_group", (request, response) => {
+
+
+  console.log("WE GETTING ALL EVENTS FOR ONE GROUP");
+
+  models.sequelize.query(
+  `SELECT * FROM events, (SELECT * FROM groups_to_users WHERE group_id = '${request.body.group_id}') A WHERE events.user_email = A.user_email;`,
+  {model: models.events}) 
+  .then((events) => {
+  
+    console.log(events);
+    response.send(events);
+
+  }).catch((err) =>{
+    console.log(err);
+  });
+  /*
+
+    1) get all group_id from request
+    2) get all the user_emails from the group_to_users table where the row's group_id == id
+  */
+
+});
+
+//5:38pm - done
+router.post("/api_get_all_users_for_group", (request, response) => {
+
+
+  console.log("WE GETTING ALL USERS FOR ONE GROUP");
+
+  models.sequelize.query(
+  `SELECT groups_to_users.user_email FROM groups_to_users WHERE groups_to_users.group_id = '${request.body.group_id}';`, 
+  {type: models.sequelize.QueryTypes.SELECT}) 
+  .then((results) => {
+  
+    console.log(results);
+    response.send(results);
+
+  }).catch((err) =>{
+    console.log(err);
+  });
+
 });
 
 
