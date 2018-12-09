@@ -171,7 +171,7 @@ router.post("/api_all_groups_single_user", (request, response) => {
 
 
 //3:00pm
-router.get("/api_get_all_events_for_group", (request, response) => {
+router.post("/api_get_all_events_for_group", (request, response) => {
 
 
   console.log("WE GETTING ALL EVENTS FOR ONE GROUP");
