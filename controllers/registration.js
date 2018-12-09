@@ -1,5 +1,6 @@
 const express = require('express');
 const models = require('../models');
+const passport = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -11,9 +12,23 @@ router.get("/api_get_registration", (request, response) => {
   .then(events => {
     response.send(events);
   });
-
 });
 
+/*
+router.post('/signup', (req,res) => {
+  User.create({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    username: req.body.username,
+    email: req.body.email,
+    password_hash: req.body.password,
+  }).then((user) => {
+    res.json({ msg: "user created" });
+  }).catch(() => {
+    res.status(400).json({ msg: "error creating user" });
+  });
+});
+*/
 
 // -------------[POST]---------------
 // a user is registering
@@ -38,7 +53,7 @@ router.post("/api_registration", (request, response) => {
         email: request.body.email,
         password: request.body.password
 
-      }).then( (new_user) => {
+      }).then((new_user) => {
         console.log("WE MADE A NEW USER WITH EMAIL: " + new_user.email);
 
         response.send(new_user);
@@ -47,12 +62,21 @@ router.post("/api_registration", (request, response) => {
     else
     {
       console.log("SOMETHING WENT WRONG");
-      response.status(400).json("ERROR! YOU ALREADY EXIST.");
+      response.status(400).json({message: "ERROR! YOU ALREADY EXIST."});
     }
 
   });
 
 });
+
+
+
+
+
+
+
+
+
 
 
 module.exports = router;

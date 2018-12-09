@@ -16,7 +16,6 @@ router.get("/api_all_users", (request, response) => {
 });
 
 
-
 module.exports = router;
 
 

@@ -1,3 +1,4 @@
+const passport = require('./middleware/auth');
 var Express = require("express");		//Using express
 var Sequelize = require("sequelize");	//Using sequelize
 // var models = require('../models');
@@ -12,6 +13,9 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(passport.initialize());
+
 app.use(require('./controllers'));
 
 
